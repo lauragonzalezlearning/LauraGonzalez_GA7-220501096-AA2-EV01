@@ -1,9 +1,11 @@
- // Aqui estamos apuntando un paquete 
+
+// Aqui estamos apuntando un paquete 
 package com.mycompany.casoexitojdbc;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
@@ -35,27 +37,31 @@ public class CASOexitoJDBC {
       
       try(
               Connection con = initializeDatabase();
-              PreparedStatement st = con.prepareStatement("INSERT INTO registro(Identificacion,Name,Direccion) VALUES(?,?,?)");
+              PreparedStatement st = con.prepareStatement("SELECT * FROM registro");
               ){
           
+          //Aqui se ejecuta la consulta
+          ResultSet rs = st.executeQuery();
           
-          //Hacer las inserciones}
-           st.setString(1, "567");
-          st.setString(2, "Lau G");
-           st.setString(3, "Calle 4");
-           
-           
-           //ejecutamos la insercion
-           
-           st.executeUpdate();
-           
-           //mostramos mensaje
-           
-           System.out.println("Registro Agregado");
-           
+          // mostramos los datos
+        
+          while(rs.next()){
+              
+              //creo las variables
+              
+              int id = rs.getInt("Identificacion");
+              String nombre = rs.getString("Name");
+              String direccion = rs.getString("Direccion");
+              
+              //mostramos por pantalla
+              
+              System.out.println("ID:"+id + "nombre:"+nombre + "direccion:"+direccion);
+          
+          }
+          
       }catch(ClassNotFoundException | NumberFormatException | SQLException e){
       
-          System.out.println("Error al insertar datos"+ e.getMessage());
+          System.out.println("Error al mostrar datos"+ e.getMessage());
       }
   }
           }
