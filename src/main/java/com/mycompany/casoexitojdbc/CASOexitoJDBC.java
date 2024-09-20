@@ -40,8 +40,8 @@ public class CASOexitoJDBC {
           
           
           //Hacer las inserciones}
-           st.setString(1, "235");
-          st.setString(2, "Clau G");
+           st.setString(1, "567");
+          st.setString(2, "Lau G");
            st.setString(3, "Calle 4");
            
            
